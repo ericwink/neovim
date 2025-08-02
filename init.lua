@@ -25,6 +25,4 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup('plugins')
-vim.keymap.set('n', '<leader>e', ':Neotree source=filesystem reveal=true position=right<CR>')
-
 
