@@ -1,3 +1,7 @@
+-- this file is a combined config for mason and lsp tools
+-- collectively this provides the mason package manager
+-- as well as autocomplete suggestions from the lsp
+-- and community maintained code snippets
 return {
   {
     "neovim/nvim-lspconfig", -- LSP support
