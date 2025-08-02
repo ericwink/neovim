@@ -2,6 +2,8 @@ vim.cmd("set expandtab")
 vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -20,15 +22,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"- setup must be called before loading
-
 local plugins = {
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',
       dependencies = { 'nvim-lua/plenary.nvim' }
-  }
+  },
+  -- note that docs indicate branch will switch to 'main' in the future
+  -- run :TSUpdate occassionally to update all parsers
+  {"nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate"},
 }
 
 local opts = {}
@@ -44,3 +46,14 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find f
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+local config = require("nvim-treesitter.configs")
+config.setup({
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  }
+})
